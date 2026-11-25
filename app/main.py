@@ -1,7 +1,7 @@
 from fastapi import FastAPI,Request,BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import products, user,auth
+from app.routers import products, user,auth,files
 from app.database import engine, Base
 from app import models
 from app.tasks import send_notification
@@ -34,6 +34,7 @@ app.include_router(products.router)
 
 app.include_router(auth.router)
 
+app.router.include_router(files.router)
 
 # 创建数据库表
 Base.metadata.create_all(bind=engine)
